@@ -1,807 +1,694 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLeite Tattoo | Estúdio de Tatuagem Exclusivo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLeite Tattoo — Estúdio de Tatuagem</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-color: #0b0b0b;
+      --card-bg: #141414;
+      --accent-color: #d4af37;
+      --accent-hover: #f3cf65;
+      --text-color: #e5e5e5;
+      --text-muted: #a3a3a3;
+      --border-color: #262626;
+      --danger: #ef4444;
+    }
 
-    <!-- Google Fonts: Cinzel & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
 
-    <!-- Custom Tailwind Styling Extensions -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: {
-                            400: '#F3E5AB',
-                            500: '#D4AF37',
-                            600: '#AA820A',
-                            700: '#856404'
-                        },
-                        dark: {
-                            900: '#0A0A0A',
-                            800: '#121212',
-                            700: '#1A1A1A',
-                            600: '#262626'
-                        }
-                    },
-                    fontFamily: {
-                        cinzel: ['Cinzel', 'serif'],
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    h1, h2, h3, .brand {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+    }
 
-    <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #262626;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D4AF37;
-        }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(11, 11, 11, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* Gold Gradient Text */
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #FFF0B3 0%, #D4AF37 50%, #997A15 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        /* Gold Gradient Border */
-        .gold-border-gradient {
-            border-image: linear-gradient(135deg, #D4AF37, #262626) 1;
-        }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
 
-        /* Glassmorphism */
-        .glass-panel {
-            background: rgba(18, 18, 18, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-        }
-    </style>
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .btn-admin-nav {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-admin-nav:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      background: linear-gradient(rgba(11, 11, 11, 0.75), rgba(11, 11, 11, 0.95)), url('https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: #000;
+      padding: 0.8rem 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: var(--accent-color);
+      margin: 10px auto 0;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-color);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+
+    .gallery-card-info {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-card-info h4 {
+      font-size: 1rem;
+    }
+
+    .gallery-card-info span {
+      font-size: 0.8rem;
+      color: var(--accent-color);
+      background: rgba(212, 175, 55, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .btn-delete {
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+
+    /* Form orçamento */
+    .quote-form {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0b0b0b;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-color);
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* Modal Admin & Lightbox */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Lightbox */
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--text-color);
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-dark-900 text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black">
+<body>
 
-    <!-- HEADER -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gold-500/20 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-full border border-gold-500/50 flex items-center justify-center bg-dark-800 group-hover:border-gold-500 transition">
-                    <i class="fa-solid fa-pen-nib text-gold-500 text-lg"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-cinzel text-xl font-bold tracking-wider gold-gradient-text">MLEITE TATTOO</span>
-                    <span class="text-[10px] tracking-[0.2em] text-gray-400 uppercase">Estúdio Exclusivo</span>
-                </div>
-            </a>
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand"><i class="fa-solid fa-gem"></i> MLeite Tattoo</a>
+    <nav>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#orcamento">Orçamento</a>
+      <button class="btn-admin-nav" onclick="openAdminModal()"><i class="fa-solid fa-lock"></i> Admin</button>
+    </nav>
+  </header>
 
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-                <a href="#inicio" class="hover:text-gold-500 transition">Início</a>
-                <a href="#sobre" class="hover:text-gold-500 transition">O Estúdio</a>
-                <a href="#portfolio" class="hover:text-gold-500 transition">Portfólio</a>
-                <a href="#cuidados" class="hover:text-gold-500 transition">Cuidados</a>
-                <a href="#orcamento" class="hover:text-gold-500 transition">Orçamento</a>
-            </nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>MLeite Tattoo</h1>
+    <p>Arte na pele com precisão, higiene e exclusividade. Especialista em Coberturas, Fineline, Blackwork e projetos personalizados.</p>
+    <a href="#orcamento" class="btn-primary"><i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento</a>
+  </section>
 
-            <!-- Social Links & Action -->
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="https://instagram.com/mleitetattoo" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-dark-700 flex items-center justify-center text-gray-300 hover:text-gold-500 hover:bg-dark-600 transition" title="Instagram @mleitetattoo">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://wa.me/5516993888610" target="_blank" rel="noopener" class="w-9 h-9 rounded-full bg-dark-700 flex items-center justify-center text-gray-300 hover:text-green-400 hover:bg-dark-600 transition" title="WhatsApp Studio">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <a href="#orcamento" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-600 to-gold-500 text-dark-900 font-semibold text-xs uppercase tracking-wider hover:opacity-90 transition shadow-lg shadow-gold-500/10">
-                    Agendar
-                </a>
-            </div>
+  <!-- Portfólio Section -->
+  <section class="section" id="portfolio">
+    <h2 class="section-title">Portfólio de Trabalhos</h2>
 
-            <!-- Mobile Menu Toggle Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-gold-500 text-2xl focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Drawer Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-gold-500/20 px-6 py-6 space-y-4">
-            <a href="#inicio" class="block text-gray-200 hover:text-gold-500 font-medium py-2">Início</a>
-            <a href="#sobre" class="block text-gray-200 hover:text-gold-500 font-medium py-2">O Estúdio</a>
-            <a href="#portfolio" class="block text-gray-200 hover:text-gold-500 font-medium py-2">Portfólio</a>
-            <a href="#cuidados" class="block text-gray-200 hover:text-gold-500 font-medium py-2">Cuidados Pós-Tattoo</a>
-            <a href="#orcamento" class="block text-gray-200 hover:text-gold-500 font-medium py-2">Solicitar Orçamento</a>
-            <div class="pt-4 border-t border-dark-600 flex items-center justify-between">
-                <div class="flex space-x-4">
-                    <a href="https://instagram.com/mleitetattoo" target="_blank" class="text-gray-300 hover:text-gold-500 text-xl"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://wa.me/5516993888610" target="_blank" class="text-gray-300 hover:text-green-400 text-xl"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-                <span class="text-xs text-gray-400">@mleitetattoo</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-dark-900">
-        <!-- Background Overlay Image -->
-        <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=1600&auto=format&fit=crop');"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent z-0"></div>
-
-        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center py-20">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-500 text-xs font-semibold tracking-widest uppercase mb-8">
-                <i class="fa-solid fa-crown text-xs"></i> Estúdio de Alta Precisão
-            </div>
-
-            <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-                ARTE EXCLUSIVA NA PELE <br>
-                <span class="gold-gradient-text">MLEITE TATTOO</span>
-            </h1>
-
-            <p class="max-w-2xl mx-auto text-gray-300 text-base sm:text-lg mb-10 font-light leading-relaxed">
-                Especialista em transformação estética, realismo, trabalhos em preto e coberturas impecáveis de projetos antigos.
-            </p>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#orcamento" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-dark-900 font-bold text-sm tracking-widest uppercase shadow-xl shadow-gold-500/20 hover:scale-[1.02] transition">
-                    <i class="fa-brands fa-whatsapp mr-2 text-base"></i> Pedir Orçamento no WhatsApp
-                </a>
-                <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-gold-500/40 text-gray-200 font-semibold text-sm tracking-widest uppercase hover:bg-gold-500/10 hover:border-gold-500 transition">
-                    Explorar Galeria
-                </a>
-            </div>
-
-            <!-- Features Highlights -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-dark-700/60 max-w-4xl mx-auto text-center">
-                <div>
-                    <h4 class="font-cinzel text-gold-500 text-xl font-bold">100%</h4>
-                    <p class="text-xs text-gray-400 uppercase mt-1">Materiais Descartáveis</p>
-                </div>
-                <div>
-                    <h4 class="font-cinzel text-gold-500 text-xl font-bold">Exclusivo</h4>
-                    <p class="text-xs text-gray-400 uppercase mt-1">Desenhos Autorais</p>
-                </div>
-                <div>
-                    <h4 class="font-cinzel text-gold-500 text-xl font-bold">Cover-up</h4>
-                    <p class="text-xs text-gray-400 uppercase mt-1">Especialista em Coberturas</p>
-                </div>
-                <div>
-                    <h4 class="font-cinzel text-gold-500 text-xl font-bold">Garantia</h4>
-                    <p class="text-xs text-gray-400 uppercase mt-1">Biossegurança Total</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="sobre" class="py-24 bg-dark-800 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                <!-- Left Image Composition -->
-                <div class="relative">
-                    <div class="aspect-square rounded-2xl overflow-hidden border border-gold-500/30 shadow-2xl relative">
-                        <img src="https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=1000&auto=format&fit=crop" alt="MLeite Tattoo Studio" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
-                    </div>
-                    <div class="absolute -bottom-6 -right-6 glass-panel p-6 rounded-2xl hidden sm:block border border-gold-500/30 max-w-xs">
-                        <p class="text-gold-500 font-cinzel font-bold text-lg mb-1">MLeite Tattoo</p>
-                        <p class="text-xs text-gray-400">Ambiente climatizado, higienizado e projetado para o seu conforto máximo.</p>
-                    </div>
-                </div>
-
-                <!-- Right Content -->
-                <div class="space-y-6">
-                    <span class="text-gold-500 text-xs font-semibold tracking-widest uppercase">Sobre o Estúdio</span>
-                    <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">Excelência em Cada Traço & Pigmento</h2>
-                    <p class="text-gray-300 leading-relaxed font-light">
-                        No estúdio <strong class="text-gold-500">MLeite Tattoo</strong>, cada projeto é tratado como uma obra única. Trabalhamos com rigorosas normas de biossegurança, utilizando agulhas, tintas de primeira linha regulamentadas e equipamentos modernos.
-                    </p>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Seja para criar um fechamento complexo, traços finos delicados ou fazer a cobertura perfeita de uma tatuagem antiga (Cover-up), entregamos um resultado marcante e seguro.
-                    </p>
-
-                    <div class="space-y-3 pt-2">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-gold-500"></i>
-                            <span class="text-sm text-gray-200">Atendimento personalizado com hora marcada</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-gold-500"></i>
-                            <span class="text-sm text-gray-200">Projetos sob medida para a anatomia do cliente</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-circle-check text-gold-500"></i>
-                            <span class="text-sm text-gray-200">Suporte completo antes, durante e após a sessão</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="py-24 bg-dark-900 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="text-gold-500 text-xs font-semibold tracking-widest uppercase">Galeria de Trabalhos</span>
-                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Portfólio MLeite Tattoo</h2>
-                <p class="text-gray-400 text-sm mt-3">Selecione uma categoria abaixo para filtrar nossos trabalhos mais recentes.</p>
-            </div>
-
-            <!-- Filter Categories -->
-            <div class="flex flex-wrap items-center justify-center gap-2 mb-12" id="portfolio-filters">
-                <button data-filter="all" class="filter-btn active px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-gold-500 text-dark-900">
-                    Todos
-                </button>
-                <button data-filter="Realismo" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Realismo
-                </button>
-                <button data-filter="Blackwork" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Blackwork
-                </button>
-                <button data-filter="Cobertura / Cover-up" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Cobertura / Cover-up
-                </button>
-                <button data-filter="Fechamento" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Fechamento
-                </button>
-                <button data-filter="Lettering" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Lettering
-                </button>
-                <button data-filter="Fineline" class="filter-btn px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition bg-dark-800 text-gray-300 hover:text-gold-500 border border-dark-600">
-                    Fineline
-                </button>
-            </div>
-
-            <!-- Portfolio Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
-                <!-- Javascript will inject images dynamically here -->
-            </div>
-
-        </div>
-    </section>
-
-    <!-- AFTERCARE SECTION -->
-    <section id="cuidados" class="py-24 bg-dark-800 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-gold-500 text-xs font-semibold tracking-widest uppercase">Guia de Cicatrização</span>
-                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white mt-2">Cuidados Pós-Tatuagem</h2>
-                <p class="text-gray-400 text-sm mt-3">Para garantir que a sua tatuagem fique perfeita e com cores vivas por muitos anos, siga rigorosamente as recomendações abaixo.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="glass-panel p-6 rounded-2xl border border-dark-600 hover:border-gold-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
-                        <i class="fa-solid fa-soap"></i>
-                    </div>
-                    <h3 class="font-cinzel font-bold text-white text-lg mb-2">1. Higienização</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Lave suavemente a tatuagem 2 a 3 vezes ao dia com água fria/morna e sabonete líquido neutro ou antisséptico. Seque com papel toalha sem esfregar.
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="glass-panel p-6 rounded-2xl border border-dark-600 hover:border-gold-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
-                        <i class="fa-solid fa-pump-soap"></i>
-                    </div>
-                    <h3 class="font-cinzel font-bold text-white text-lg mb-2">2. Pomada Certa</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Aplique uma camada bem fina da pomada cicatrizante indicada pelo tatuador. Não exagere na quantidade para não sufocar a pele.
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glass-panel p-6 rounded-2xl border border-dark-600 hover:border-gold-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
-                        <i class="fa-solid fa-ban-smoking"></i>
-                    </div>
-                    <h3 class="font-cinzel font-bold text-white text-lg mb-2">3. O Que Evitar</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Evite banhos de mar, piscina, sauna e exposição direta ao sol durante os primeiros 15 a 20 dias. Não arranque as casquinhas!
-                    </p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="glass-panel p-6 rounded-2xl border border-dark-600 hover:border-gold-500/40 transition">
-                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 flex items-center justify-center text-gold-500 text-xl mb-4">
-                        <i class="fa-solid fa-sun"></i>
-                    </div>
-                    <h3 class="font-cinzel font-bold text-white text-lg mb-2">4. Manutenção</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">
-                        Após a cicatrização completa, use protetor solar sempre que expor a tatuagem ao sol para manter os pigmentos pretos e coloridos nítidos.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BUDGET FORM SECTION -->
-    <section id="orcamento" class="py-24 bg-dark-900 relative">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-gold-500/30 relative overflow-hidden">
-                <div class="text-center max-w-xl mx-auto mb-10">
-                    <span class="text-gold-500 text-xs font-semibold tracking-widest uppercase">Atendimento Direto</span>
-                    <h2 class="font-cinzel text-3xl font-bold text-white mt-2">Solicitar Orçamento</h2>
-                    <p class="text-gray-400 text-xs mt-2">Preencha as informações da sua ideia abaixo para gerar a mensagem formatada direto no WhatsApp do estúdio.</p>
-                </div>
-
-                <form id="whatsapp-budget-form" class="space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-medium text-gray-300 uppercase tracking-wider mb-2">Seu Nome *</label>
-                            <input type="text" id="form-name" required placeholder="Ex: Rodrigo Silva" class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-gray-300 uppercase tracking-wider mb-2">Estilo da Tattoo *</label>
-                            <select id="form-style" required class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500 transition">
-                                <option value="Realismo">Realismo</option>
-                                <option value="Blackwork">Blackwork</option>
-                                <option value="Cobertura / Cover-up">Cobertura / Cover-up (Cobrir tattoo antiga)</option>
-                                <option value="Fechamento">Fechamento (Braço/Perna/Costas)</option>
-                                <option value="Lettering">Lettering / Escrita</option>
-                                <option value="Fineline">Fineline / Traço Fino</option>
-                                <option value="Outro">Outro Estilo</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-medium text-gray-300 uppercase tracking-wider mb-2">Local do Corpo *</label>
-                            <input type="text" id="form-location" required placeholder="Ex: Antebraço, Panturrilha..." class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-gray-300 uppercase tracking-wider mb-2">Tamanho Aproximado (em cm)</label>
-                            <input type="text" id="form-size" placeholder="Ex: 15 cm x 10 cm" class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500 transition">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-gray-300 uppercase tracking-wider mb-2">Descrição da Ideia / Detalhes</label>
-                        <textarea id="form-idea" rows="4" placeholder="Descreva o que deseja tatuar, se tem imagens de referência ou se é uma cobertura..." class="w-full bg-dark-800 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500 transition"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 text-dark-900 font-bold text-sm uppercase tracking-widest hover:opacity-90 transition shadow-lg shadow-gold-500/20 flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Enviar Orçamento para o WhatsApp
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-dark-800 border-t border-dark-700 py-12 text-xs text-gray-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            
-            <div class="flex items-center gap-3">
-                <span class="font-cinzel text-lg font-bold text-gold-500">MLEITE TATTOO</span>
-                <span class="text-gray-600">|</span>
-                <span>© 2026 Todos os direitos reservados.</span>
-            </div>
-
-            <div class="flex items-center space-x-6">
-                <a href="https://instagram.com/mleitetattoo" target="_blank" class="hover:text-gold-500 transition flex items-center gap-1">
-                    <i class="fa-brands fa-instagram"></i> @mleitetattoo
-                </a>
-                <a href="https://wa.me/5516993888610" target="_blank" class="hover:text-green-400 transition flex items-center gap-1">
-                    <i class="fa-brands fa-whatsapp"></i> (16) 99388-8610
-                </a>
-            </div>
-
-            <!-- Admin Restricted Area Link -->
-            <div>
-                <button id="open-admin-btn" class="hover:text-gold-500 transition underline font-medium">
-                    <i class="fa-solid fa-lock text-[10px] mr-1"></i> Área do Administrador
-                </button>
-            </div>
-
-        </div>
-    </footer>
-
-    <!-- LIGHTBOX MODAL (Expand Portfolio Image) -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-md">
-        <button id="close-lightbox" class="absolute top-6 right-6 text-white text-3xl hover:text-gold-500 transition">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="max-w-3xl w-full bg-dark-800 border border-gold-500/30 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
-            <div class="md:w-2/3 bg-black flex items-center justify-center max-h-[70vh]">
-                <img id="lightbox-img" src="" alt="" class="max-h-full w-auto object-contain">
-            </div>
-            <div class="md:w-1/3 p-6 flex flex-col justify-between">
-                <div>
-                    <span id="lightbox-category" class="inline-block px-3 py-1 rounded-full bg-gold-500/20 text-gold-500 text-[10px] font-bold uppercase tracking-wider mb-2">
-                        Categoria
-                    </span>
-                    <h3 id="lightbox-title" class="font-cinzel text-xl font-bold text-white mb-2">Título</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-4">Gostou deste estilo? Clique abaixo para orçar um projeto parecido diretamente no WhatsApp.</p>
-                </div>
-                <a id="lightbox-wa-btn" href="#" target="_blank" class="w-full py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-xs uppercase tracking-wider text-center transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-base"></i> Quero uma igual/parecida
-                </a>
-            </div>
-        </div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterGallery('all')">Todos</button>
+      <button class="filter-btn" onclick="filterGallery('cobertura')">Cobertura / Cover-up</button>
+      <button class="filter-btn" onclick="filterGallery('fineline')">Fineline</button>
+      <button class="filter-btn" onclick="filterGallery('blackwork')">Blackwork</button>
+      <button class="filter-btn" onclick="filterGallery('realismo')">Realismo</button>
+      <button class="filter-btn" onclick="filterGallery('lettering')">Lettering</button>
     </div>
 
-    <!-- ADMIN LOGIN MODAL -->
-    <div id="admin-login-modal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4">
-        <div class="glass-panel max-w-md w-full p-8 rounded-2xl border border-gold-500/30 relative">
-            <button id="close-admin-login" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <h3 class="font-cinzel text-xl font-bold text-white mb-2">Acesso Restrito</h3>
-            <p class="text-gray-400 text-xs mb-6">Digite a senha administrativa para gerenciar o portfólio de fotos.</p>
-            
-            <form id="admin-login-form" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-gray-300 uppercase mb-1">Senha de Acesso</label>
-                    <input type="password" id="admin-password-input" placeholder="Digite a senha..." required class="w-full bg-dark-900 border border-dark-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-gold-500">
-                </div>
-                <button type="submit" class="w-full py-3 bg-gold-500 hover:bg-gold-600 text-dark-900 font-bold text-xs uppercase tracking-wider rounded-xl transition">
-                    Entrar no Painel
-                </button>
-            </form>
+    <div class="gallery-grid" id="galleryContainer">
+      <!-- As fotos do Firebase Firestore serão injetadas aqui -->
+    </div>
+  </section>
+
+  <!-- Orçamento Section -->
+  <section class="section" id="orcamento">
+    <h2 class="section-title">Faça seu Orçamento</h2>
+
+    <div class="quote-form">
+      <div class="form-group">
+        <label>Nome Completo</label>
+        <input type="text" id="qName" placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label>Estilo Desejado</label>
+        <select id="qStyle">
+          <option value="Cobertura / Cover-up">Cobertura / Cover-up</option>
+          <option value="Fineline">Fineline / Traço Fino</option>
+          <option value="Blackwork">Blackwork</option>
+          <option value="Realismo">Realismo</option>
+          <option value="Lettering">Lettering</option>
+          <option value="Outro">Outro Estilo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Local do Corpo e Tamanho (em cm)</label>
+        <input type="text" id="qPlacement" placeholder="Ex: Antebraço, 15cm">
+      </div>
+      <div class="form-group">
+        <label>Descrição da Idéia</label>
+        <textarea id="qIdea" rows="4" placeholder="Descreva como quer a sua tattoo..."></textarea>
+      </div>
+      <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="sendWhatsAppQuote()">
+        <i class="fa-brands fa-whatsapp"></i> Enviar para o WhatsApp
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://instagram.com/vtzin_016" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/5516993888610" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+    <p>&copy; 2026 MLeite Tattoo. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal Admin (Autenticação / Gerenciamento) -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeAdminModal()">&times;</button>
+      
+      <!-- Login Admin -->
+      <div id="adminLoginStep">
+        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Área Restrita</h3>
+        <div class="form-group">
+          <label>Senha de Acesso</label>
+          <input type="password" id="adminPass" placeholder="Digite a senha (padrão: 1234)">
         </div>
-    </div>
+        <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="verifyAdminPassword()">Entrar</button>
+      </div>
 
-    <!-- ADMIN MANAGEMENT PANEL (DRAWER/MODAL) -->
-    <div id="admin-panel-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="glass-panel max-w-4xl w-full p-6 sm:p-8 rounded-2xl border border-gold-500/40 my-8">
-            <div class="flex items-center justify-between pb-4 border-b border-dark-600 mb-6">
-                <div>
-                    <h3 class="font-cinzel text-xl font-bold text-gold-500">Painel de Gerenciamento do Portfólio</h3>
-                    <p class="text-xs text-gray-400">Adicione ou remova fotos da galeria do estúdio MLeite Tattoo.</p>
-                </div>
-                <button id="close-admin-panel" class="px-4 py-2 bg-red-900/40 hover:bg-red-900/80 text-red-300 rounded-xl text-xs font-semibold">
-                    Sair do Painel
-                </button>
-            </div>
-
-            <!-- Form: Add new tattoo -->
-            <form id="add-tattoo-form" class="space-y-4 bg-dark-900/60 p-5 rounded-xl border border-dark-600 mb-8">
-                <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Adicionar Nova Foto</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-[11px] text-gray-300 uppercase mb-1">Título da Foto</label>
-                        <input type="text" id="new-tattoo-title" required placeholder="Ex: Leão Realista" class="w-full bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-white text-xs">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] text-gray-300 uppercase mb-1">Categoria</label>
-                        <select id="new-tattoo-category" required class="w-full bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-white text-xs">
-                            <option value="Realismo">Realismo</option>
-                            <option value="Blackwork">Blackwork</option>
-                            <option value="Cobertura / Cover-up">Cobertura / Cover-up</option>
-                            <option value="Fechamento">Fechamento</option>
-                            <option value="Lettering">Lettering</option>
-                            <option value="Fineline">Fineline</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] text-gray-300 uppercase mb-1">URL da Imagem</label>
-                        <input type="url" id="new-tattoo-url" required placeholder="https://..." class="w-full bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-white text-xs">
-                    </div>
-                </div>
-                <button type="submit" class="px-6 py-2.5 bg-gold-500 hover:bg-gold-600 text-dark-900 font-bold text-xs uppercase tracking-wider rounded-lg transition">
-                    <i class="fa-solid fa-plus mr-1"></i> Adicionar Foto
-                </button>
-            </form>
-
-            <!-- List: Manage current photos -->
-            <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Fotos Atuais no Portfólio</h4>
-            <div id="admin-tattoo-list" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-h-[300px] overflow-y-auto pr-2">
-                <!-- Javascript renders management cards here -->
-            </div>
+      <!-- Painel do Admin (Adicionar Imagem ao Firebase) -->
+      <div id="adminPanelStep" style="display: none;">
+        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Adicionar Nova Foto</h3>
+        <div class="form-group">
+          <label>Título da Tattoo</label>
+          <input type="text" id="tattooTitle" placeholder="Ex: Cobertura de Leão">
         </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="tattooCategory">
+            <option value="cobertura">Cobertura / Cover-up</option>
+            <option value="fineline">Fineline</option>
+            <option value="blackwork">Blackwork</option>
+            <option value="realismo">Realismo</option>
+            <option value="lettering">Lettering</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>URL da Imagem</label>
+          <input type="url" id="tattooUrl" placeholder="https://exemplo.com/foto.jpg">
+        </div>
+        <button class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 0.5rem;" onclick="addTattooToFirebase()">Salvar Foto no Banco de Dados</button>
+        <button style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); width: 100%; padding: 0.5rem; border-radius: 6px; cursor: pointer;" onclick="logoutAdmin()">Sair do Admin</button>
+      </div>
     </div>
+  </div>
 
-    <!-- CUSTOM TOAST NOTIFICATION (Replaces alert) -->
-    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 glass-panel px-5 py-3 rounded-xl border border-gold-500/50 text-white text-xs font-medium hidden shadow-2xl flex items-center gap-3">
-        <i class="fa-solid fa-circle-info text-gold-500 text-base"></i>
-        <span id="toast-message">Mensagem enviada com sucesso!</span>
-    </div>
+  <!-- Modal Lightbox (Zoom de Imagem) -->
+  <div class="modal" id="lightboxModal" onclick="closeLightbox()">
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Zoom Tattoo">
+  </div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        const DEFAULT_PORTFOLIO = [
-            {
-                id: '1',
-                title: 'Tigre Sombreado Realista',
-                category: 'Realismo',
-                image: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=800&auto=format&fit=crop'
-            },
-            {
-                id: '2',
-                title: 'Cobertura de Dragão em Blackwork',
-                category: 'Cobertura / Cover-up',
-                image: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?q=80&w=800&auto=format&fit=crop'
-            },
-            {
-                id: '3',
-                title: 'Fechamento de Braço Mitológico',
-                category: 'Fechamento',
-                image: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?q=80&w=800&auto=format&fit=crop'
-            },
-            {
-                id: '4',
-                title: 'Lettering Caligráfico Custom',
-                category: 'Lettering',
-                image: 'https://images.unsplash.com/photo-1542382257-80dedb725088?q=80&w=800&auto=format&fit=crop'
-            },
-            {
-                id: '5',
-                title: 'Trabalho Geométrico Dark',
-                category: 'Blackwork',
-                image: 'https://images.unsplash.com/photo-1590246814884-570a1d95cc4b?q=80&w=800&auto=format&fit=crop'
-            },
-            {
-                id: '6',
-                title: 'Traço Fino Delicado Floral',
-                category: 'Fineline',
-                image: 'https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?q=80&w=800&auto=format&fit=crop'
-            }
-        ];
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
-        // Retrieve stored tattoos or set initial
-        function getPortfolio() {
-            const stored = localStorage.getItem('mleitetattoo_portfolio');
-            if (stored) {
-                try {
-                    return JSON.parse(stored);
-                } catch(e) {
-                    return DEFAULT_PORTFOLIO;
-                }
-            }
-            localStorage.setItem('mleitetattoo_portfolio', JSON.stringify(DEFAULT_PORTFOLIO));
-            return DEFAULT_PORTFOLIO;
-        }
+  <script>
+    // Configurações do Firebase obtidas na consola
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLdsaSJ3YCNsM-8vyObEb0UA68Fy_yxSM",
+      authDomain: "mleite-tattoo-db.firebaseapp.com",
+      projectId: "mleite-tattoo-db",
+      storageBucket: "mleite-tattoo-db.firebasestorage.app",
+      messagingSenderId: "116795327925",
+      appId: "1:116795327925:web:c77fa4d9c0ecb9a158c5fc"
+    };
 
-        function savePortfolio(items) {
-            localStorage.setItem('mleitetattoo_portfolio', JSON.stringify(items));
-            renderPortfolio('all');
-            renderAdminList();
-        }
+    // Inicializar o Firebase e o Cloud Firestore
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-        let currentFilter = 'all';
+    let currentFilter = 'all';
+    let isAdminLoggedIn = false;
+    let allTattoos = [];
 
-        function renderPortfolio(filter = 'all') {
-            currentFilter = filter;
-            const grid = document.getElementById('portfolio-grid');
-            const items = getPortfolio();
+    // Tattoos de exemplo caso a base de dados esteja vazia no início
+    const initialTattoos = [
+      { id: '1', title: 'Cobertura de Costas', category: 'cobertura', url: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=600&q=80' },
+      { id: '2', title: 'Fineline Delicado', category: 'fineline', url: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=600&q=80' },
+      { id: '3', title: 'Fechamento Blackwork', category: 'blackwork', url: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=600&q=80' }
+    ];
 
-            const filtered = filter === 'all' 
-                ? items 
-                : items.filter(item => item.category === filter);
-
-            grid.innerHTML = '';
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-gray-500 text-xs uppercase tracking-wider">
-                        Nenhuma tatuagem cadastrada nesta categoria.
-                    </div>
-                `;
-                return;
-            }
-
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'group relative rounded-2xl overflow-hidden bg-dark-800 border border-dark-600 hover:border-gold-500/50 transition cursor-pointer aspect-square shadow-lg';
-                card.onclick = () => openLightbox(item);
-
-                card.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x600/121212/D4AF37?text=MLeite+Tattoo'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                        <span class="text-gold-500 text-[10px] font-bold uppercase tracking-widest">${item.category}</span>
-                        <h4 class="font-cinzel text-white font-bold text-base mt-1">${item.title}</h4>
-                        <span class="text-gray-400 text-xs mt-2 inline-flex items-center gap-1">
-                            Ampliar <i class="fa-solid fa-up-right-and-down-left-from-center text-[10px] ml-1"></i>
-                        </span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function openLightbox(item) {
-            const modal = document.getElementById('lightbox-modal');
-            document.getElementById('lightbox-img').src = item.image;
-            document.getElementById('lightbox-title').innerText = item.title;
-            document.getElementById('lightbox-category').innerText = item.category;
-
-            const message = encodeURIComponent(`Olá, vi a tatuagem "${item.title}" (${item.category}) no site MLeite Tattoo e gostaria de solicitar um orçamento similar!`);
-            document.getElementById('lightbox-wa-btn').href = `https://wa.me/5516993888610?text=${message}`;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        document.getElementById('close-lightbox').onclick = () => {
-            const modal = document.getElementById('lightbox-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        };
-
-        document.querySelectorAll('#portfolio-filters .filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('#portfolio-filters .filter-btn').forEach(b => {
-                    b.classList.remove('bg-gold-500', 'text-dark-900', 'active');
-                    b.classList.add('bg-dark-800', 'text-gray-300');
-                });
-
-                e.target.classList.remove('bg-dark-800', 'text-gray-300');
-                e.target.classList.add('bg-gold-500', 'text-dark-900', 'active');
-
-                const filter = e.target.getAttribute('data-filter');
-                renderPortfolio(filter);
-            });
+    // Escutar alterações no Firebase Firestore em tempo real
+    function listenToTattoosFirebase() {
+      db.collection("portfolio").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+        allTattoos = [];
+        snapshot.forEach((doc) => {
+          allTattoos.push({ id: doc.id, ...doc.data() });
         });
 
-        document.getElementById('whatsapp-budget-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('form-name').value.trim();
-            const style = document.getElementById('form-style').value;
-            const location = document.getElementById('form-location').value.trim();
-            const size = document.getElementById('form-size').value.trim() || 'Não especificado';
-            const idea = document.getElementById('form-idea').value.trim() || 'Sem detalhes adicionais';
-
-            const message = `*ORÇAMENTO - MLEITE TATTOO*\n\n` +
-                `*Nome:* ${name}\n` +
-                `*Estilo:* ${style}\n` +
-                `*Local do Corpo:* ${location}\n` +
-                `*Tamanho Estimado:* ${size}\n` +
-                `*Detalhes/Ideia:* ${idea}`;
-
-            const waUrl = `https://wa.me/5516993888610?text=${encodeURIComponent(message)}`;
-            
-            showToast('Redirecionando para o WhatsApp do MLeite Tattoo...');
-            setTimeout(() => {
-                window.open(waUrl, '_blank');
-            }, 1000);
-        });
-
-        const openAdminBtn = document.getElementById('open-admin-btn');
-        const adminLoginModal = document.getElementById('admin-login-modal');
-        const closeAdminLogin = document.getElementById('close-admin-login');
-        const adminLoginForm = document.getElementById('admin-login-form');
-
-        const adminPanelModal = document.getElementById('admin-panel-modal');
-        const closeAdminPanel = document.getElementById('close-admin-panel');
-
-        openAdminBtn.onclick = () => {
-            adminLoginModal.classList.remove('hidden');
-            adminLoginModal.classList.add('flex');
-        };
-
-        closeAdminLogin.onclick = () => {
-            adminLoginModal.classList.add('hidden');
-            adminLoginModal.classList.remove('flex');
-        };
-
-        adminLoginForm.onsubmit = (e) => {
-            e.preventDefault();
-            const password = document.getElementById('admin-password-input').value;
-            
-            if (password === '1234') {
-                adminLoginModal.classList.add('hidden');
-                adminLoginModal.classList.remove('flex');
-                document.getElementById('admin-password-input').value = '';
-
-                renderAdminList();
-                adminPanelModal.classList.remove('hidden');
-                adminPanelModal.classList.add('flex');
-                showToast('Acesso concedido à Área do Administrador');
-            } else {
-                showToast('Senha incorreta! Tente novamente.');
-            }
-        };
-
-        closeAdminPanel.onclick = () => {
-            adminPanelModal.classList.add('hidden');
-            adminPanelModal.classList.remove('flex');
-        };
-
-        function renderAdminList() {
-            const list = document.getElementById('admin-tattoo-list');
-            const items = getPortfolio();
-            list.innerHTML = '';
-
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'relative group bg-dark-800 rounded-lg overflow-hidden border border-dark-600 p-2';
-                card.innerHTML = `
-                    <img src="${item.image}" class="w-full h-24 object-cover rounded mb-2" onerror="this.src='https://placehold.co/200x200/121212/D4AF37?text=Foto'">
-                    <p class="text-[10px] font-bold text-white truncate">${item.title}</p>
-                    <p class="text-[9px] text-gold-500">${item.category}</p>
-                    <button onclick="deleteTattoo('${item.id}')" class="mt-2 w-full py-1 bg-red-900/60 hover:bg-red-800 text-red-200 text-[10px] font-bold rounded transition">
-                        Remover
-                    </button>
-                `;
-                list.appendChild(card);
-            });
+        // Se a coleção estiver vazia, carrega as tatuagens padrão
+        if (allTattoos.length === 0 && snapshot.empty) {
+          allTattoos = initialTattoos;
         }
 
-        // Add new photo form
-        document.getElementById('add-tattoo-form').onsubmit = (e) => {
-            e.preventDefault();
-            const title = document.getElementById('new-tattoo-title').value.trim();
-            const category = document.getElementById('new-tattoo-category').value;
-            const image = document.getElementById('new-tattoo-url').value.trim();
+        renderGallery();
+      }, (error) => {
+        console.warn("Aviso ao ligar ao Firestore, a usar fallback local:", error);
+        allTattoos = initialTattoos;
+        renderGallery();
+      });
+    }
 
-            const items = getPortfolio();
-            const newItem = {
-                id: Date.now().toString(),
-                title,
-                category,
-                image
-            };
+    // Renderizar a Galeria de fotos
+    function renderGallery() {
+      const container = document.getElementById('galleryContainer');
+      container.innerHTML = '';
 
-            items.unshift(newItem);
-            savePortfolio(items);
+      const filtered = currentFilter === 'all' 
+        ? allTattoos 
+        : allTattoos.filter(item => item.category === currentFilter);
 
-            document.getElementById('add-tattoo-form').reset();
-            showToast('Nova foto adicionada ao portfólio!');
-        };
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">Nenhuma foto encontrada nesta categoria.</p>';
+        return;
+      }
 
-        function deleteTattoo(id) {
-            let items = getPortfolio();
-            items = items.filter(i => i.id !== id);
-            savePortfolio(items);
-            showToast('Foto removida do portfólio.');
-        }
+      filtered.forEach(tattoo => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+        card.innerHTML = `
+          <img src="${tattoo.url}" alt="${tattoo.title}" onclick="openLightbox('${tattoo.url}')">
+          <div class="gallery-card-info">
+            <h4>${tattoo.title}</h4>
+            <span>${tattoo.category.toUpperCase()}</span>
+          </div>
+          ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTattooFirebase('${tattoo.id}')"><i class="fa-solid fa-trash"></i> Eliminar</button>` : ''}
+        `;
+        container.appendChild(card);
+      });
+    }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast-notification');
-            document.getElementById('toast-message').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
+    // Filtrar categorias
+    function filterGallery(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGallery();
+    }
 
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+    // Adicionar Tattoo no Firebase Cloud Firestore
+    function addTattooToFirebase() {
+      const title = document.getElementById('tattooTitle').value.trim();
+      const category = document.getElementById('tattooCategory').value;
+      const url = document.getElementById('tattooUrl').value.trim();
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+      if (!title || !url) {
+        alert('Por favor, preencha o título e a URL da imagem!');
+        return;
+      }
+
+      db.collection("portfolio").add({
+        title: title,
+        category: category,
+        url: url,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert('Foto adicionada ao banco de dados na nuvem com sucesso!');
+        document.getElementById('tattooTitle').value = '';
+        document.getElementById('tattooUrl').value = '';
+        closeAdminModal();
+      }).catch((error) => {
+        alert('Erro ao guardar no Firebase: ' + error.message);
+      });
+    }
+
+    // Eliminar Tattoo do Firebase Cloud Firestore
+    function deleteTattooFirebase(docId) {
+      if (confirm('Tem certeza que deseja eliminar esta foto do banco de dados?')) {
+        db.collection("portfolio").doc(docId).delete().then(() => {
+          alert('Foto eliminada com sucesso!');
+        }).catch((error) => {
+          alert('Erro ao eliminar: ' + error.message);
         });
+      }
+    }
 
-        // Close mobile drawer when link clicked
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+    // Enviar Orçamento para o WhatsApp
+    function sendWhatsAppQuote() {
+      const name = document.getElementById('qName').value.trim();
+      const style = document.getElementById('qStyle').value;
+      const placement = document.getElementById('qPlacement').value.trim();
+      const idea = document.getElementById('qIdea').value.trim();
 
-        // Initialize Portfolio on Load
-        window.onload = function() {
-            renderPortfolio('all');
-        };
-    </script>
+      if (!name || !placement || !idea) {
+        alert('Por favor, preencha todos os campos do formulário.');
+        return;
+      }
+
+      const phone = "5516993888610";
+      const message = `Olá! Meu nome é *${name}* e gostaria de solicitar um orçamento para MLeite Tattoo:\n\n` +
+                      `• *Estilo:* ${style}\n` +
+                      `• *Local/Tamanho:* ${placement}\n` +
+                      `• *Ideia:* ${idea}`;
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // Modal Admin
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.add('active');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('active');
+    }
+
+    function verifyAdminPassword() {
+      const pass = document.getElementById('adminPass').value;
+      if (pass === '1234') {
+        isAdminLoggedIn = true;
+        document.getElementById('adminLoginStep').style.display = 'none';
+        document.getElementById('adminPanelStep').style.display = 'block';
+        renderGallery();
+      } else {
+        alert('Senha incorreta!');
+      }
+    }
+
+    function logoutAdmin() {
+      isAdminLoggedIn = false;
+      document.getElementById('adminPass').value = '';
+      document.getElementById('adminLoginStep').style.display = 'block';
+      document.getElementById('adminPanelStep').style.display = 'none';
+      closeAdminModal();
+      renderGallery();
+    }
+
+    // Lightbox
+    function openLightbox(url) {
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    // Inicialização ao carregar a página
+    document.addEventListener("DOMContentLoaded", () => {
+      listenToTattoosFirebase();
+    });
+  </script>
 </body>
 </html>
