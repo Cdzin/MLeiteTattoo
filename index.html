@@ -213,7 +213,7 @@
       border-color: var(--accent-color);
     }
 
-    .gallery-card img {
+    .gallery-card img, .gallery-card video {
       width: 100%;
       height: 320px;
       object-fit: cover;
@@ -329,7 +329,7 @@
     }
 
     /* Lightbox */
-    .lightbox-img {
+    .lightbox-media {
       max-width: 90vw;
       max-height: 85vh;
       border-radius: 8px;
@@ -433,7 +433,7 @@
         <input type="text" id="qPlacement" placeholder="Ex: Antebraço, 15cm">
       </div>
       <div class="form-group">
-        <label>Descrição da Idéia</label>
+        <label>Descrição da Ideia</label>
         <textarea id="qIdea" rows="4" placeholder="Descreva como quer a sua tattoo..."></textarea>
       </div>
       <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="sendWhatsAppQuote()">
@@ -466,9 +466,9 @@
         <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="verifyAdminPassword()">Entrar</button>
       </div>
 
-      <!-- Painel do Admin (Adicionar Imagem ao Firebase) -->
+      <!-- Painel do Admin (Adicionar Imagem via Galeria do Dispositivo) -->
       <div id="adminPanelStep" style="display: none;">
-        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Adicionar Nova Foto</h3>
+        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Adicionar Nova Mídia</h3>
         <div class="form-group">
           <label>Título da Tattoo</label>
           <input type="text" id="tattooTitle" placeholder="Ex: Cobertura de Leão">
@@ -484,26 +484,27 @@
           </select>
         </div>
         <div class="form-group">
-          <label>URL da Imagem</label>
-          <input type="url" id="tattooUrl" placeholder="https://exemplo.com/foto.jpg">
+          <label>Escolher da Galeria (Foto/Vídeo)</label>
+          <input type="file" id="tattooFile" accept="image/*,video/*" style="padding: 0.5rem; background: #0b0b0b;">
         </div>
-        <button class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 0.5rem;" onclick="addTattooToFirebase()">Salvar Foto no Banco de Dados</button>
+        <button id="btnUpload" class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 0.5rem;" onclick="addTattooToFirebase()">Carregar e Salvar</button>
         <button style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); width: 100%; padding: 0.5rem; border-radius: 6px; cursor: pointer;" onclick="logoutAdmin()">Sair do Admin</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Lightbox (Zoom de Imagem) -->
+  <!-- Modal Lightbox (Zoom de Mídia) -->
   <div class="modal" id="lightboxModal" onclick="closeLightbox()">
-    <img id="lightboxImg" class="lightbox-img" src="" alt="Zoom Tattoo">
+    <div id="lightboxContainer"></div>
   </div>
 
   <!-- Firebase SDK (Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
   <script>
-    // Configurações do Firebase obtidas na consola
+    // Configurações do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCLdsaSJ3YCNsM-8vyObEb0UA68Fy_yxSM",
       authDomain: "mleite-tattoo-db.firebaseapp.com",
@@ -513,9 +514,10 @@
       appId: "1:116795327925:web:c77fa4d9c0ecb9a158c5fc"
     };
 
-    // Inicializar o Firebase e o Cloud Firestore
+    // Inicializar o Firebase, Cloud Firestore e Storage
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
     let currentFilter = 'all';
     let isAdminLoggedIn = false;
@@ -523,9 +525,9 @@
 
     // Tattoos de exemplo caso a base de dados esteja vazia no início
     const initialTattoos = [
-      { id: '1', title: 'Cobertura de Costas', category: 'cobertura', url: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=600&q=80' },
-      { id: '2', title: 'Fineline Delicado', category: 'fineline', url: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=600&q=80' },
-      { id: '3', title: 'Fechamento Blackwork', category: 'blackwork', url: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=600&q=80' }
+      { id: '1', title: 'Cobertura de Costas', category: 'cobertura', type: 'image', url: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=600&q=80' },
+      { id: '2', title: 'Fineline Delicado', category: 'fineline', type: 'image', url: 'https://images.unsplash.com/photo-1562962230-16e4623d36e6?auto=format&fit=crop&w=600&q=80' },
+      { id: '3', title: 'Fechamento Blackwork', category: 'blackwork', type: 'image', url: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=600&q=80' }
     ];
 
     // Escutar alterações no Firebase Firestore em tempo real
@@ -536,7 +538,6 @@
           allTattoos.push({ id: doc.id, ...doc.data() });
         });
 
-        // Se a coleção estiver vazia, carrega as tatuagens padrão
         if (allTattoos.length === 0 && snapshot.empty) {
           allTattoos = initialTattoos;
         }
@@ -549,7 +550,7 @@
       });
     }
 
-    // Renderizar a Galeria de fotos
+    // Renderizar a Galeria de fotos/vídeos
     function renderGallery() {
       const container = document.getElementById('galleryContainer');
       container.innerHTML = '';
@@ -566,8 +567,14 @@
       filtered.forEach(tattoo => {
         const card = document.createElement('div');
         card.className = 'gallery-card';
+        const isVideo = tattoo.type === 'video' || (tattoo.url && tattoo.url.includes('.mp4'));
+        
+        const mediaHtml = isVideo 
+          ? `<video src="${tattoo.url}" muted loop playsinline onclick="openLightbox('${tattoo.url}', 'video')"></video>`
+          : `<img src="${tattoo.url}" alt="${tattoo.title}" onclick="openLightbox('${tattoo.url}', 'image')">`;
+
         card.innerHTML = `
-          <img src="${tattoo.url}" alt="${tattoo.title}" onclick="openLightbox('${tattoo.url}')">
+          ${mediaHtml}
           <div class="gallery-card-info">
             <h4>${tattoo.title}</h4>
             <span>${tattoo.category.toUpperCase()}</span>
@@ -586,29 +593,45 @@
       renderGallery();
     }
 
-    // Adicionar Tattoo no Firebase Cloud Firestore
+    // Adicionar Tattoo/Mídia via Ficheiro (Firebase Storage + Firestore)
     function addTattooToFirebase() {
       const title = document.getElementById('tattooTitle').value.trim();
       const category = document.getElementById('tattooCategory').value;
-      const url = document.getElementById('tattooUrl').value.trim();
+      const fileInput = document.getElementById('tattooFile');
+      const file = fileInput.files[0];
 
-      if (!title || !url) {
-        alert('Por favor, preencha o título e a URL da imagem!');
+      if (!title || !file) {
+        alert('Por favor, preencha o título e selecione um ficheiro da galeria!');
         return;
       }
 
-      db.collection("portfolio").add({
-        title: title,
-        category: category,
-        url: url,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      const btnUpload = document.getElementById('btnUpload');
+      btnUpload.disabled = true;
+      btnUpload.innerText = 'A enviar para a nuvem...';
+
+      const mediaType = file.type.startsWith('video') ? 'video' : 'image';
+      const storageRef = storage.ref().child(`media/${Date.now()}_${file.name}`);
+
+      storageRef.put(file).then((snapshot) => {
+        return snapshot.ref.getDownloadURL();
+      }).then((downloadURL) => {
+        return db.collection("portfolio").add({
+          title: title,
+          category: category,
+          type: mediaType,
+          url: downloadURL,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
       }).then(() => {
-        alert('Foto adicionada ao banco de dados na nuvem com sucesso!');
+        alert('Mídia carregada e salva com sucesso!');
         document.getElementById('tattooTitle').value = '';
-        document.getElementById('tattooUrl').value = '';
+        fileInput.value = '';
         closeAdminModal();
       }).catch((error) => {
-        alert('Erro ao guardar no Firebase: ' + error.message);
+        alert('Erro no envio: ' + error.message);
+      }).finally(() => {
+        btnUpload.disabled = false;
+        btnUpload.innerText = 'Carregar e Salvar';
       });
     }
 
@@ -676,13 +699,19 @@
     }
 
     // Lightbox
-    function openLightbox(url) {
-      document.getElementById('lightboxImg').src = url;
+    function openLightbox(url, type) {
+      const container = document.getElementById('lightboxContainer');
+      if (type === 'video') {
+        container.innerHTML = `<video class="lightbox-media" src="${url}" controls autoplay></video>`;
+      } else {
+        container.innerHTML = `<img class="lightbox-media" src="${url}" alt="Zoom Tattoo">`;
+      }
       document.getElementById('lightboxModal').classList.add('active');
     }
 
     function closeLightbox() {
       document.getElementById('lightboxModal').classList.remove('active');
+      document.getElementById('lightboxContainer').innerHTML = '';
     }
 
     // Inicialização ao carregar a página
